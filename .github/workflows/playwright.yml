@@ -18,8 +18,9 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (ignore peer deps)
+        run: npm install --legacy-peer-deps
+
 
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps

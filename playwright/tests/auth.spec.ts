@@ -1,6 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { AuthPage } from '../pages/AuthPage';
 import { SignupPage } from '../pages/SignupPage';
+import { test } from '../tests/fixtures';
 
 //  const baseURL = 'http://localhost:3000';
 
@@ -10,8 +11,8 @@ test.describe('User Sign-up and Login', () => {
     await expect(page).toHaveURL('/signin');
   });
 
-  test('should display login errors', async ({ page }) => {
-    const authPage = new AuthPage(page);
+  test('should display login errors', async ({ authPage }) => {
+    // const authPage = new AuthPage(page);
     await authPage.gotoSignin();
 
     await authPage.usernameInput.type('User');
@@ -27,8 +28,8 @@ test.describe('User Sign-up and Login', () => {
     await expect(authPage.signinSubmit).toBeDisabled();
   });
 
-  test('should display signup errors', async ({ page }) => {
-    const signupPage = new SignupPage(page);
+  test('should display signup errors', async ({ signupPage }) => {
+    // const signupPage = new SignupPage(page);
     await signupPage.gotoSignup();
 
     await signupPage.firstNameInput.type('First');
@@ -58,8 +59,8 @@ test.describe('User Sign-up and Login', () => {
     await expect(signupPage.signupSubmit).toBeDisabled();
   });
 
-  test('should error for invalid user', async ({ page }) => {
-    const authPage = new AuthPage(page);
+  test('should error for invalid user', async ({ authPage }) => {
+    // const authPage = new AuthPage(page);
     await authPage.gotoSignin();
     await authPage.usernameInput.fill('invalidUserName');
     await authPage.passwordInput.fill('invalidPa$$word');
