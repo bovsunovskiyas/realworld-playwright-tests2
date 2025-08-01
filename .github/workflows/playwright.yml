@@ -18,23 +18,20 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies (ignore peer deps)
+      - name: Install root npm deps
         run: npm install --legacy-peer-deps
 
-
-      - name: Install Playwright dependencies
+      - name: Install Playwright deps
         working-directory: playwright
-        run: npx playwright install --with-deps
+        run: npm install
 
-      - name: Start App (in background)
-        run: npm run dev &
-
-      - name: Wait for local server to be ready
-        run: npx wait-on --timeout 300000 http://localhost:3001
+      - name: Install browsers
+        working-directory: playwright
+        run: npm run install-browsers
 
       - name: Run Playwright tests
         working-directory: playwright
-        run: npx playwright test
+        run: npm test
 
       - name: Upload Playwright report
         if: always()
