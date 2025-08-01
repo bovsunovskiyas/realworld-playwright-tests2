@@ -70,7 +70,7 @@ test.describe('User Sign-up and Login', () => {
 
 // Should fail, because it test whith invalid errorHelper text
 test('should fail this test', async ({ authPage }) => {
-    // const authPage = new AuthPage(page);
+    //  const authPage = new AuthPage(page);
     await authPage.gotoSignin();
 
     await authPage.usernameInput.type('User');
