@@ -23,6 +23,7 @@ jobs:
 
 
       - name: Install Playwright dependencies
+        working-directory: playwright
         run: npx playwright install --with-deps
 
       - name: Start App (in background)
