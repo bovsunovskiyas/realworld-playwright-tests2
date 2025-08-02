@@ -12,9 +12,15 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:3000',
     testIdAttribute: 'data-test',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    // trace: 'on-first-retry',
+    // screenshot: 'only-on-failure',
+    // video: 'retain-on-failure',
+
+    // on for debugging purposes
+    trace: 'on',         
+    screenshot: 'on',    
+    video: 'on',         
+
   },
 
   /* Configure projects for major browsers */

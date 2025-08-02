@@ -67,23 +67,4 @@ test.describe('User Sign-up and Login', () => {
     await authPage.signinSubmit.click();
     await expect(authPage.signinError).toHaveText('Username or password is invalid');
   });
-
-// Should fail, because it test whith invalid errorHelper text
-test('should fail this test', async ({ authPage }) => {
-    //  const authPage = new AuthPage(page);
-    await authPage.gotoSignin();
-
-    await authPage.usernameInput.type('User');
-    await authPage.usernameInput.fill('');
-    await authPage.usernameInput.blur();
-    await expect(authPage.usernameHelper).toBeVisible();
-    await expect(authPage.usernameHelper).toContainText('Username are required');
-
-    await authPage.passwordInput.type('abc');
-    await authPage.passwordInput.blur();
-    await expect(authPage.passwordHelper).toContainText('Password must contain at least 4 characters');
-
-    await expect(authPage.signinSubmit).toBeDisabled();
-  });
-
 });
