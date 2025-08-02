@@ -15,11 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -38,7 +36,7 @@ jobs:
         working-directory: playwright
         run: npm test
 
-      - name: Upload report as artifact (ZIP)
+      - name: Upload ZIP report
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -54,7 +52,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: playwright/report
-          name: github-pages
 
   deploy:
     needs: test
@@ -62,11 +59,4 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Download Pages artifact
-        uses: actions/download-pages-artifact@v3
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v3
+      - uses: actions/deploy-pages@v3
