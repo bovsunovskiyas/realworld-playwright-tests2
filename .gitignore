@@ -59,4 +59,4 @@ playwright/playwright-report
 playwright/node_modules/
 playwright/blob-report/
 playwright/.cache/
-/playwright/.github
+playwright/.github
