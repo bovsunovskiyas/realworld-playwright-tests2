@@ -38,34 +38,35 @@ jobs:
         working-directory: playwright
         run: npm test
 
-      - name: Upload Playwright report archive
+      - name: Upload report as artifact (ZIP)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright/playwright-report
 
-      - name: Prepare report for GitHub Pages
+      - name: Prepare static HTML report for GitHub Pages
         run: |
-          rm -rf playwright/report
           mkdir -p playwright/report
           cp -r playwright/playwright-report/* playwright/report/
 
-      - name: Upload GitHub Pages artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: playwright/report
-          name: playwright-report-pages
+          name: github-pages
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download Pages artifact
+        uses: actions/download-pages-artifact@v3
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v3
