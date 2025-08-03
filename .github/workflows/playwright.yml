@@ -7,19 +7,13 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -27,10 +21,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install root dependencies
+      - name: Install root deps
         run: npm install --legacy-peer-deps
 
-      - name: Install Playwright dependencies
+      - name: Install Playwright deps
         working-directory: playwright
         run: npm install
 
@@ -42,33 +36,9 @@ jobs:
         working-directory: playwright
         run: npm test
 
-      - name: Upload zipped report for download
+      - name: Upload Playwright report archive
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright/playwright-report
-
-      - name: Generate static HTML report for GitHub Pages
-        run: |
-          mkdir -p playwright/report
-          cp -r playwright/playwright-report/* playwright/report/
-
-      - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: playwright/report
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v3
