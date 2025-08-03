@@ -3,15 +3,26 @@
 Playwright tests for the authentication module from the [Cypress RealWorld App](https://github.com/cypress-io/cypress-realworld-app), modul of `Playwright` extracted into a separate `/playwright` project for better dependency isolation.
 
 ---
+## 📁 Test Project Structure
+```
+/ ← Main application (yarn dev)
+/playwright/ ← Playwright test suite
+├── package.json
+├── playwright.config.ts
+├── tests/
+└── pages/
+```
+---
 
+## 🚀 Running Locally
 
-### Installation of main cypress-realworld-app
+1. ### Installation of main cypress-realworld-app
 
 To clone the repo to your local system and install dependencies, execute the following commands:
 
 ```shell
 git clone https://github.com/bovsunovskiyas/realworld-playwright-tests
-cd realworld-playwright-tests
+cd cypress-realworld-app
 yarn
 ```
 
@@ -21,69 +32,40 @@ yarn
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
 ```
 
-### Run the app
+### Run the app (if you have some problems with running main app on http://localhost:3000, please see README.md.bak)
 
 ```shell
-yarn dev
+yarn dev 
 ```
 
----
-
-
-## 📁 Test Project Structure
-```
-/ ← Main application (npm run dev)
-/playwright/ ← Playwright test suite
-├── package.json
-├── playwright.config.ts
-├── tests/
-└── pages/
-```
-
----
-
-## 🚀 Running Locally
-
-1. Install root project dependencies:
+2. Install root project dependencies:
    ```bash
    npm install --legacy-peer-deps
    ```
 
-2. Navigate to the Playwright project: 
+3. Navigate to the Playwright project: 
     ```bash
     cd playwright
     ```
 
-3. Install Playwright dependencies and required browsers:
+4. Install Playwright dependencies and required browsers:
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    npm run install-browsers
    ```
 
-4. Run the tests:
+5. Run the tests:
    ```bash
    npm test
    ```
 
-
-> Playwright automatically starts n`npm run dev` from the root and tests the UI at `http://localhost:3000`.
+> Playwright automatically starts n`npm run dev` from the root and tests the UI at `http://localhost:3000` if you don't start main app from root folder.
 
 
 
 ## ✅ CI: GitHub Actions
 
 Tests run automatically on `push` or `pull_request` to the `main` branch.
-
-### 🔨 CI Steps:
-
-- Launch npm `run dev`
-- Execute Playwright tests
-- Generate a static **HTML report**
-- Publish:
-    - ✅ the zipped report as a GitHub Artifact
-    - 🌐 the HTML report on GitHub Pages
-
----
 
 ## 📥 Downloading the Report
 
@@ -92,33 +74,25 @@ Tests run automatically on `push` or `pull_request` to the `main` branch.
 3. Report download the artifact:
 📦 `playwright-report.zip`
 
-## 🌍 Online Report (GitHub Pages)
-
-The report is published after every `push` to `main`:
-
-👉 [View the report](https://bovsunovskiyas.github.io/realworld-playwright-tests2/)
-
-> **URL will change if the repository name or username changes.**
-
+---
 ## ℹ️ Useful Commands
 
-```bash
-# Install Playwright dependencies
-cd playwright
-npm install
+   ```bash
+   # Install Playwright dependencies
+   cd playwright
+   npm install
+   or
+   npm init playwright@latest
 
-# Install Playwright browsers
-npm run install-browsers
+   # Install Playwright browsers
+   npm run install-browsers
 
-# Run tests
-npm test
-```
-
+   # Run tests
+   npx playwright test
+   ```
+---
 ## 📌 Tips
 
 - Use `data-test` attributes for selectors
 - Avoid hard (`waitForTimeouts`)
 - Use the `Page Object` pattern to isolate UI logic
-
-
-
